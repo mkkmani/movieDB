@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react'
-import Loader from 'react-loader-spinner'
 import MovieCard from '../MovieCard'
+import Loading from '../Loader'
+import Failure from '../Failure'
+import './index.css'
 
 const apiStatusList = {
   init: 'INIT',
@@ -58,7 +60,41 @@ const HomeRoute = props => {
     fetchData()
   })
 
-  return <div>Hello</div>
+  const onChangePage = value => {
+    const updatedPage = currentPage + value
+
+    if (updatedPage < 0) {
+      currentPage(1)
+    }
+    changePage(prev => prev + value)
+  }
+
+  const Pagination = () => (
+    <div className="pagination-container">
+      <button type="button" className="page-btn" onClick={onChangePage(-1)}>
+        Previous
+      </button>
+      <span>{currentPage}</span>
+      <button type="button" className="page-btn" onClick={onChangePage(1)}>
+        Next
+      </button>
+    </div>
+  )
+
+  return data ? (
+    <div>
+      <ul className="home-ul">
+        {data.map(each => (
+          <MovieCard key={each.id} details={each} />
+        ))}
+      </ul>
+      <Pagination />
+    </div>
+  ) : (
+    <div>
+      <Loading />
+    </div>
+  )
 }
 
 export default HomeRoute
