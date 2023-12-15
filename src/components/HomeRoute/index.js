@@ -1,7 +1,8 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
+import InputContext from '../../context/context'
 import './index.css'
 
 const apiStatusList = {
@@ -11,13 +12,13 @@ const apiStatusList = {
   failure: 'FAILURE',
 }
 
-const HomeRoute = props => {
-  const {searchInput} = props
+const HomeRoute = () => {
+  const {searchInput} = useContext(InputContext)
   const apiKey = 'e9ec2ea7225ad8a96148d8b293353054'
   const [apiStatus, setApiStatus] = useState(apiStatusList.init)
   const [data, setData] = useState()
   const [currentPage, changePage] = useState(1)
-
+  console.log('searchInput', searchInput)
   useEffect(() => {
     const fetchData = async () => {
       setApiStatus(apiStatusList.loading)
@@ -48,6 +49,7 @@ const HomeRoute = props => {
         }))
 
         setData(updatedData)
+        console.log('fetchedData', updatedData)
         setApiStatus(apiStatusList.success)
       } else {
         setApiStatus(apiStatusList.failure)

@@ -6,6 +6,7 @@ import Toprated from './components/TopRated'
 import Upcoming from './components/Upcoming'
 import Navbar from './components/Navbar'
 import MovieDetails from './components/MovieDetails'
+import InputContext from './context/context'
 
 class App extends Component {
   state = {
@@ -37,24 +38,31 @@ class App extends Component {
   }
 
   render() {
-    const {setUserInput, userInput} = this.state
-    const HomeRouteComponent = () => <HomeRoute searchInput={setUserInput} />
+    const {userInput, setUserInput} = this.state
+    const contextValue = {
+      userInput,
+      searchInput: setUserInput,
+      onChangeInput: this.onChangeUserInput,
+      onkeyDown: this.onKeyDown,
+      onClickSearch: this.onClickSearch,
+      onClickTitle: this.onClickTitle,
+    }
     return (
-      <div>
-        <Navbar
-          onChangeUserInput={this.onChangeUserInput}
-          onKeyDown={this.onKeyDown}
-          onClickSearch={this.onClickSearch}
-          searchInput={userInput}
-          onClickTitle={this.onClickTitle}
-        />
-        <Switch>
-          <Route exact path="/" component={HomeRouteComponent} />
-          <Route exact path="/top-rated" component={Toprated} />
-          <Route exact path="/upcoming" component={Upcoming} />
-          <Route exact path="/movie/:movieName/:id" component={MovieDetails} />
-        </Switch>
-      </div>
+      <InputContext.Provider value={contextValue}>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={HomeRoute} />
+            <Route exact path="/top-rated" component={Toprated} />
+            <Route exact path="/upcoming" component={Upcoming} />
+            <Route
+              exact
+              path="/movie/:movieName/:id"
+              component={MovieDetails}
+            />
+          </Switch>
+        </div>
+      </InputContext.Provider>
     )
   }
 }
