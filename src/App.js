@@ -2,7 +2,10 @@ import './App.css'
 import {Component} from 'react'
 import {Switch, Route} from 'react-router-dom'
 import HomeRoute from './components/HomeRoute'
+import Toprated from './components/TopRated'
+import Upcoming from './components/Upcoming'
 import Navbar from './components/Navbar'
+import MovieDetails from './components/MovieDetails'
 
 class App extends Component {
   state = {
@@ -47,6 +50,9 @@ class App extends Component {
         />
         <Switch>
           <Route exact path="/" component={HomeRouteComponent} />
+          <Route exact path="/top-rated" component={Toprated} />
+          <Route exact path="/upcoming" component={Upcoming} />
+          <Route exact path="/movie/:movieName/:id" component={MovieDetails} />
         </Switch>
       </div>
     )
