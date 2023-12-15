@@ -4,7 +4,7 @@ const InputContext = React.createContext({
   userInput: '',
   searchInput: '',
   onChangeInput: () => {},
-  onkeyDown: () => {},
+  onEnter: () => {},
   onClickSearch: () => {},
   onClickTitle: () => {},
 })

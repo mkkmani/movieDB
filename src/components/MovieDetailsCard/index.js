@@ -1,65 +1,77 @@
-import {useContext} from 'react'
-import {Link} from 'react-router-dom'
 import './index.css'
-import InputContext from '../../context/context'
 
-const Navbar = () => {
+const MovieDetailsCard = props => {
+  const {movieDetails, castDetails} = props
   const {
-    userInput,
-    onChangeInput,
-    onKeyDown,
-    onClickSearch,
-    onClickTitle,
-  } = useContext(InputContext)
+    backdropPath,
+    posterPath,
+    title,
+    releaseDate,
+    voteAverage,
+    genres,
+    overview,
+    runtime,
+  } = movieDetails
 
-  const clickTitle = history => {
-    onClickTitle()
-    history.push('/')
+  const {cast, crew} = castDetails
+  console.log('cast details', castDetails)
+
+  if (
+    !backdropPath ||
+    !posterPath ||
+    !title ||
+    !releaseDate ||
+    !voteAverage ||
+    !genres ||
+    !overview
+  ) {
+    return <p>Loading please wait...</p>
   }
 
+  const imagePath = 'https://image.tmdb.org/t/p/original'
+  const bgImage = `${imagePath}${backdropPath}`
+  const posterImage = `${imagePath}${posterPath}`
+  const year = new Date(releaseDate).getFullYear()
+  const rating = voteAverage * 10
+  const hrMin = `${Math.floor(runtime / 60)}h${runtime % 60}m`
+
   return (
-    <nav>
-      <div className="nav-bar">
-        <div>
-          <h1 className="nav-title" onClick={clickTitle}>
-            movieDB
-          </h1>
-        </div>
-        <div>
-          <ul className="nav-routes">
-            <li>
-              <Link to="/" className="nav-link">
-                Popular
-              </Link>
-            </li>
-            <li>
-              <Link to="/top-rated" className="nav-link">
-                Top rated
-              </Link>
-            </li>
-            <li>
-              <Link to="/upcoming" className="nav-link">
-                Upcoming
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <input
-            type="search"
-            className="nav-search"
-            placeholder="search movies"
-            value={userInput}
-            onKeyDown={e => onKeyDown(e.key)}
-            onChange={e => onChangeInput(e.target.value)}
-          />
-          <button type="button" className="search-btn" onClick={onClickSearch}>
-            Search
-          </button>
+    <div className="movie">
+      <div
+        className="movie-background"
+        style={{backgroundImage: `url(${bgImage})`}}
+      >
+        <div className="movie-details">
+          <div className="poster-div">
+            <img src={posterImage} alt={title} className="poster-image" />
+          </div>
+          <div className="details-div">
+            <h1>
+              {`${title}`}
+              <span className="span-year">({year})</span>
+            </h1>
+            <div className="ul-movie">
+              <div className="gap">
+                <span>
+                  {releaseDate}{' '}
+                  {genres.map(each => (
+                    <span key={each.id}>{` ${each.name}`}</span>
+                  ))}
+                </span>{' '}
+                <span>{hrMin}</span>
+              </div>
+              <div className="gap">
+                <p className="overview-head">Overview</p>
+              </div>
+              <div className="gap">
+                <p className="overview-content">{overview}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
   )
 }
 
-export default Navbar
+export default MovieDetailsCard

@@ -23,7 +23,7 @@ class App extends Component {
     this.setState({setUserInput: ''})
   }
 
-  onKeyDown = key => {
+  onClickEnter = key => {
     const {userInput} = this.state
     // console.log(key)
     if (key === 'Enter') {
@@ -43,7 +43,7 @@ class App extends Component {
       userInput,
       searchInput: setUserInput,
       onChangeInput: this.onChangeUserInput,
-      onkeyDown: this.onKeyDown,
+      onEnter: this.onClickEnter,
       onClickSearch: this.onClickSearch,
       onClickTitle: this.onClickTitle,
     }

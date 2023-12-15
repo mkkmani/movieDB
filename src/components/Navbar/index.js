@@ -1,14 +1,16 @@
 import {Link, withRouter} from 'react-router-dom'
+import {useContext} from 'react'
+import InputContext from '../../context/context'
 import './index.css'
 
 const Navbar = props => {
   const {
-    searchInput,
-    onChangeUserInput,
-    onKeyDown,
+    userInput,
+    onChangeInput,
+    onEnter,
     onClickSearch,
     onClickTitle,
-  } = props
+  } = useContext(InputContext)
 
   const clickTitle = () => {
     const {history} = props
@@ -47,10 +49,10 @@ const Navbar = props => {
             type="search"
             className="nav-search"
             placeholder="search movies"
-            value={searchInput}
-            onKeyDown={e => onKeyDown(e.key)}
+            value={userInput}
+            onKeyDown={e => onEnter(e.key)}
             onChange={e => {
-              onChangeUserInput(e.target.value)
+              onChangeInput(e.target.value)
             }}
           />
           <button

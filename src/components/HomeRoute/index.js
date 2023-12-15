@@ -18,7 +18,6 @@ const HomeRoute = () => {
   const [apiStatus, setApiStatus] = useState(apiStatusList.init)
   const [data, setData] = useState()
   const [currentPage, changePage] = useState(1)
-  console.log('searchInput', searchInput)
   useEffect(() => {
     const fetchData = async () => {
       setApiStatus(apiStatusList.loading)
