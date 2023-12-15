@@ -20,8 +20,6 @@ const MovieDetailsCard = props => {
     status,
   } = movieDetails
 
-  console.log('movie details', movieDetails)
-
   const {cast, crew} = castDetails
 
   if (!movieDetails || Object.keys(movieDetails).length === 0) {
@@ -36,7 +34,7 @@ const MovieDetailsCard = props => {
   const bgImage = `${imagePath}${backdropPath}`
   const posterImage = `${imagePath}${posterPath}`
   const year = new Date(releaseDate).getFullYear()
-  const rating = voteAverage * 10
+  const rating = Math.floor(voteAverage * 10)
   const duration = `${Math.floor(runtime / 60)}h${runtime % 60}m`
   const finalBudget = budget > 0 ? budget : '-'
   const finalRevenue = revenue > 0 ? revenue : '-'

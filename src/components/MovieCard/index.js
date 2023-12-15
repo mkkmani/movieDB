@@ -15,7 +15,7 @@ const MovieCard = props => {
   const formattedDate = formatDate(releaseDate)
 
   return (
-    <Link to={`/movie/${title}/${id}`} className="link-item">
+    <div className="movie-card-container">
       <div className="movie-card">
         <img
           src={`https://image.tmdb.org/t/p/original/${posterPath}`}
@@ -28,7 +28,14 @@ const MovieCard = props => {
         <p className="popular-title">{title}</p>
         <p className="popular-date">{formattedDate}</p>
       </div>
-    </Link>
+      <div className="details-btn-div">
+        <Link to={`/movie/${title}/${id}`} className="link-item">
+          <button type="button" className="details-btn">
+            View Details
+          </button>
+        </Link>
+      </div>
+    </div>
   )
 }
 

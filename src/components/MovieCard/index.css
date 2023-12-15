@@ -1,9 +1,24 @@
+.movie-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 410px;
+  margin-bottom: 18px;
+  align-items: center;
+  border: 1px solid darkgray;
+  padding: 3px;
+  border-radius: 6px;
+}
+
 .movie-card {
   max-width: 180px;
   position: relative;
   color: black;
   overflow: hidden;
   margin: 10px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
 .link-item {
@@ -14,6 +29,7 @@
   height: 250px;
   width: 160px;
   border-radius: 10px;
+  align-self: center;
 }
 
 .rating-div {
@@ -43,4 +59,20 @@
 
 .popular-date {
   font-size: 14px;
+}
+
+.details-btn-div {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-btn {
+  background-color: darkcyan;
+  border: none;
+  padding: 10px 30px 10px 30px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
 }
