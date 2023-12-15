@@ -1,8 +1,7 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect} from 'react'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
-import InputContext from '../../context/context'
 import './index.css'
 
 const apiStatusList = {
@@ -13,7 +12,6 @@ const apiStatusList = {
 }
 
 const HomeRoute = () => {
-  const {searchInput} = useContext(InputContext)
   const apiKey = 'e9ec2ea7225ad8a96148d8b293353054'
   const [apiStatus, setApiStatus] = useState(apiStatusList.init)
   const [data, setData] = useState()
@@ -21,9 +19,7 @@ const HomeRoute = () => {
   useEffect(() => {
     const fetchData = async () => {
       setApiStatus(apiStatusList.loading)
-      const apiUrl = searchInput
-        ? `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchInput}&page=${currentPage}`
-        : `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`
+      const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`
 
       const options = {method: 'GET'}
       const response = await fetch(apiUrl, options)
@@ -56,7 +52,7 @@ const HomeRoute = () => {
     }
 
     fetchData()
-  }, [searchInput, currentPage])
+  }, [currentPage])
 
   const onChangePage = value => {
     const updatedPage = currentPage + value

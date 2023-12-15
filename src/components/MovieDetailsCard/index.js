@@ -1,4 +1,5 @@
 import './index.css'
+import Loading from '../Loader'
 
 const MovieDetailsCard = props => {
   const {movieDetails, castDetails} = props
@@ -11,21 +12,14 @@ const MovieDetailsCard = props => {
     genres,
     overview,
     runtime,
+    tagline,
   } = movieDetails
 
   const {cast, crew} = castDetails
-  console.log('cast details', castDetails)
+  console.log('cast details', cast)
 
-  if (
-    !backdropPath ||
-    !posterPath ||
-    !title ||
-    !releaseDate ||
-    !voteAverage ||
-    !genres ||
-    !overview
-  ) {
-    return <p>Loading please wait...</p>
+  if (!movieDetails || Object.keys(movieDetails).length === 0) {
+    return <Loading />
   }
 
   const imagePath = 'https://image.tmdb.org/t/p/original'
@@ -33,7 +27,7 @@ const MovieDetailsCard = props => {
   const posterImage = `${imagePath}${posterPath}`
   const year = new Date(releaseDate).getFullYear()
   const rating = voteAverage * 10
-  const hrMin = `${Math.floor(runtime / 60)}h${runtime % 60}m`
+  const duration = `${Math.floor(runtime / 60)}h${runtime % 60}m`
 
   return (
     <div className="movie">
@@ -53,12 +47,24 @@ const MovieDetailsCard = props => {
             <div className="ul-movie">
               <div className="gap">
                 <span>
-                  {releaseDate}{' '}
+                  {releaseDate}
                   {genres.map(each => (
                     <span key={each.id}>{` ${each.name}`}</span>
                   ))}
-                </span>{' '}
-                <span>{hrMin}</span>
+                </span>
+                <span>{` ${duration}`}</span>
+              </div>
+              <div className="voting-div">
+                <div className="details-rating-div">
+                  <p>{`${rating}%`}</p>
+                </div>
+                <p>
+                  User
+                  <br /> score
+                </p>
+              </div>
+              <div className="gap">
+                <p className="tagline">{tagline}</p>
               </div>
               <div className="gap">
                 <p className="overview-head">Overview</p>
@@ -70,6 +76,7 @@ const MovieDetailsCard = props => {
           </div>
         </div>
       </div>
+      <div className="cast-crew-status">Hello</div>
     </div>
   )
 }

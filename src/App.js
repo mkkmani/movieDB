@@ -1,17 +1,19 @@
 import './App.css'
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import HomeRoute from './components/HomeRoute'
 import Toprated from './components/TopRated'
 import Upcoming from './components/Upcoming'
 import Navbar from './components/Navbar'
 import MovieDetails from './components/MovieDetails'
+import SearchResults from './components/SearchResults'
 import InputContext from './context/context'
 
 class App extends Component {
   state = {
     userInput: '',
     setUserInput: '',
+    redirectToSearch: false,
   }
 
   onChangeUserInput = value => {
@@ -25,20 +27,28 @@ class App extends Component {
 
   onClickEnter = key => {
     const {userInput} = this.state
-    // console.log(key)
-    if (key === 'Enter') {
-      this.setState({setUserInput: userInput, userInput: ''})
+    if (key === 'Enter' && userInput !== '') {
+      this.setState({
+        setUserInput: userInput,
+        userInput: '',
+        redirectToSearch: true,
+      })
     }
   }
 
   onClickSearch = () => {
     const {userInput} = this.state
-    this.setState({setUserInput: userInput, userInput: ''})
-    // console.log('search btn clicked')
+    if (userInput !== '') {
+      this.setState({
+        setUserInput: userInput,
+        userInput: '',
+        redirectToSearch: true,
+      })
+    }
   }
 
   render() {
-    const {userInput, setUserInput} = this.state
+    const {userInput, setUserInput, redirectToSearch} = this.state
     const contextValue = {
       userInput,
       searchInput: setUserInput,
@@ -46,6 +56,10 @@ class App extends Component {
       onEnter: this.onClickEnter,
       onClickSearch: this.onClickSearch,
       onClickTitle: this.onClickTitle,
+    }
+
+    if (redirectToSearch) {
+      return <Redirect to="/search-results" />
     }
     return (
       <InputContext.Provider value={contextValue}>
@@ -60,6 +74,7 @@ class App extends Component {
               path="/movie/:movieName/:id"
               component={MovieDetails}
             />
+            <Route exact path="/search-results" component={SearchResults} />
           </Switch>
         </div>
       </InputContext.Provider>
