@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 .movie {
   min-height: 100vh;
   background-size: 'cover';
@@ -115,6 +119,57 @@ li span {
   font-weight: 500;
 }
 
-.cast-crew-status{
-    display:flex
+.cast-crew-status {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 30px;
+  max-width: 70vw;
+}
+
+.cast-crew {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cast-div {
+  max-width: 70vw;
+  overflow: auto;
+}
+
+.cast-ul {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  list-style-type: none;
+  /* overflow-x: hidden; */
+}
+
+.cast-heading {
+  font-weight: 700;
+  font-size: 26px;
+  padding-left: 50px;
+}
+
+.status-container {
+  padding-left: 30px;
+  padding-top: 60px;
+}
+
+.status-container p {
+  width: 20vw;
+  margin: 0px;
+  /* margin-top: 6px; */
+}
+
+.status-heading {
+  font-weight: 700;
+  padding-top: 6px;
+}
+
+.status-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 6px;
 }

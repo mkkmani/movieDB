@@ -1,5 +1,6 @@
 import './index.css'
 import Loading from '../Loader'
+import CastCard from '../CastCrewCard'
 
 const MovieDetailsCard = props => {
   const {movieDetails, castDetails} = props
@@ -13,12 +14,21 @@ const MovieDetailsCard = props => {
     overview,
     runtime,
     tagline,
+    revenue,
+    budget,
+    voteCount,
+    status,
   } = movieDetails
 
+  console.log('movie details', movieDetails)
+
   const {cast, crew} = castDetails
-  console.log('cast details', cast)
 
   if (!movieDetails || Object.keys(movieDetails).length === 0) {
+    return <Loading />
+  }
+
+  if (!castDetails || Object.keys(castDetails).length === 0) {
     return <Loading />
   }
 
@@ -28,6 +38,8 @@ const MovieDetailsCard = props => {
   const year = new Date(releaseDate).getFullYear()
   const rating = voteAverage * 10
   const duration = `${Math.floor(runtime / 60)}h${runtime % 60}m`
+  const finalBudget = budget > 0 ? budget : '-'
+  const finalRevenue = revenue > 0 ? revenue : '-'
 
   return (
     <div className="movie">
@@ -76,7 +88,65 @@ const MovieDetailsCard = props => {
           </div>
         </div>
       </div>
-      <div className="cast-crew-status">Hello</div>
+      <div className="cast-crew-status">
+        <div className="cast-crew">
+          <div className="cast-div">
+            <p className="cast-heading">Cast</p>
+            <ul className="cast-ul">
+              {cast.map(eachCast => (
+                <li key={eachCast.castId}>
+                  <CastCard details={eachCast} />
+                </li>
+              ))}
+            </ul>
+            <p className="cast-heading">Crew</p>
+            <ul className="cast-ul">
+              {crew.map(each => (
+                <li key={each.creditId}>
+                  <CastCard details={each} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="status-container">
+          <div>
+            <p className="status-heading">Movie title</p>
+            <p className="status-status">{title}</p>
+          </div>
+          <div>
+            <p className="status-heading">Status</p>
+            <p className="status-status">{status}</p>
+          </div>
+
+          <div>
+            <p className="status-heading">Run time</p>
+            <p className="status-status">{duration}</p>
+          </div>
+          <div>
+            <p className="status-heading">Budget</p>
+            <p className="status-status">
+              <span>$</span>
+              {finalBudget}
+            </p>
+          </div>
+          <div>
+            <p className="status-heading">Revenue</p>
+            <p className="status-status">
+              <span>$</span>
+              {finalRevenue}
+            </p>
+          </div>
+          <div>
+            <p className="status-heading">Vote average</p>
+            <p className="status-status">{voteAverage}</p>
+          </div>
+          <div>
+            <p className="status-heading">Vote count</p>
+            <p className="status-status">{voteCount}</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
