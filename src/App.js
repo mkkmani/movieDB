@@ -6,7 +6,7 @@ import Toprated from './components/TopRated'
 import Upcoming from './components/Upcoming'
 import Navbar from './components/Navbar'
 import MovieDetails from './components/MovieDetails'
-import SearchResults from './components/SearchResults'
+import SearchRoute from './components/SearchRoute'
 import InputContext from './context/context'
 
 class App extends Component {
@@ -18,7 +18,6 @@ class App extends Component {
 
   onChangeUserInput = value => {
     this.setState({userInput: value})
-    // console.log(value)
   }
 
   onClickTitle = () => {
@@ -58,9 +57,6 @@ class App extends Component {
       onClickTitle: this.onClickTitle,
     }
 
-    if (redirectToSearch) {
-      return <Redirect to="/search-results" />
-    }
     return (
       <InputContext.Provider value={contextValue}>
         <div>
@@ -74,8 +70,9 @@ class App extends Component {
               path="/movie/:movieName/:id"
               component={MovieDetails}
             />
-            <Route exact path="/search-results" component={SearchResults} />
+            <Route exact path="/search-results" component={SearchRoute} />
           </Switch>
+          {redirectToSearch && <Redirect to="/search-results" />}
         </div>
       </InputContext.Provider>
     )

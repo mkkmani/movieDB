@@ -1,0 +1,25 @@
+.search-results-container {
+  margin: 0px;
+  padding: 0px;
+}
+
+.search-results-ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.your-search {
+  font-size: 24px;
+  padding-left: 30px;
+  font-weight: 500;
+}
