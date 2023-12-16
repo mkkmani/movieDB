@@ -72,7 +72,7 @@ const Upcoming = () => {
           onChangePage(-1)
         }}
       >
-        Previous
+        Prev
       </button>
       <span className="page-number">{currentPage}</span>
       <button

@@ -13,6 +13,8 @@
 
 .search-poster-img {
   height: 100%;
+  border-radius: 6px;
+  margin-right: 20px;
 }
 
 .search-card-container {
@@ -30,5 +32,18 @@
 
 .search-card-static {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 15px;
+}
+
+.search-card-title {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.search-card-overview-title {
+  font-weight: 600;
+}
+
+.search-card-date {
+  font-weight: 600;
 }

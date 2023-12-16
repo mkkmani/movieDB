@@ -40,7 +40,7 @@ const SearchCard = props => {
             {voteAverage}
           </span>
         </p>
-        <p>Overview</p>
+        <p className="search-card-overview-title">Overview</p>
         <p>{overview}</p>
       </div>
     </div>

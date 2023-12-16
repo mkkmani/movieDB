@@ -72,7 +72,7 @@ const Toprated = () => {
           onChangePage(-1)
         }}
       >
-        Previous
+        Prev
       </button>
       <span className="page-number">{currentPage}</span>
       <button

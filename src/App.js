@@ -59,7 +59,7 @@ class App extends Component {
 
     return (
       <InputContext.Provider value={contextValue}>
-        <div>
+        <div className="app-div">
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomeRoute} />

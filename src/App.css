@@ -10,3 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.app-div {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
