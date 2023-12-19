@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
+import SearchCard from '../SearchContainer'
 
 const apiStatusList = {
   init: 'INIT',
@@ -91,6 +92,7 @@ const Toprated = () => {
   const SuccessPage = () =>
     data ? (
       <div>
+        <SearchCard />
         <ul className="home-ul">
           {data.map(each => (
             <MovieCard key={each.id} details={each} />

@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import SearchCard from '../SearchContainer'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
@@ -92,9 +93,12 @@ const HomeRoute = () => {
   const SuccessPage = () =>
     data ? (
       <div>
+        <SearchCard />
         <ul className="home-ul">
           {data.map(each => (
-            <MovieCard key={each.id} details={each} />
+            <li key={each.id}>
+              <MovieCard details={each} />
+            </li>
           ))}
         </ul>
         <Pagination />

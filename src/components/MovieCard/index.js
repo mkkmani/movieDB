@@ -23,7 +23,7 @@ const MovieCard = props => {
           className="poster-img"
         />
         <div className="rating-div">
-          <p className="rating-text">{`${Math.ceil(voteAverage * 10)}%`}</p>
+          <p className="rating-text">{voteAverage}</p>
         </div>
         <p className="popular-title">{title}</p>
         <p className="popular-date">{formattedDate}</p>

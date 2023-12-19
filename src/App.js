@@ -12,7 +12,6 @@ import InputContext from './context/context'
 class App extends Component {
   state = {
     userInput: '',
-    setUserInput: '',
     redirectToSearch: false,
   }
 
@@ -21,14 +20,13 @@ class App extends Component {
   }
 
   onClickTitle = () => {
-    this.setState({setUserInput: ''})
+    this.setState({userInput: ''})
   }
 
   onClickEnter = key => {
     const {userInput} = this.state
     if (key === 'Enter' && userInput !== '') {
       this.setState({
-        setUserInput: userInput,
         userInput: '',
         redirectToSearch: true,
       })
@@ -39,7 +37,6 @@ class App extends Component {
     const {userInput} = this.state
     if (userInput !== '') {
       this.setState({
-        setUserInput: userInput,
         userInput: '',
         redirectToSearch: true,
       })
@@ -47,10 +44,9 @@ class App extends Component {
   }
 
   render() {
-    const {userInput, setUserInput, redirectToSearch} = this.state
+    const {userInput, redirectToSearch} = this.state
     const contextValue = {
       userInput,
-      searchInput: setUserInput,
       onChangeInput: this.onChangeUserInput,
       onEnter: this.onClickEnter,
       onClickSearch: this.onClickSearch,
