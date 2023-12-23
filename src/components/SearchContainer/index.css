@@ -1,8 +1,11 @@
-.search-card-container {
+.search-container-card {
   display: flex;
-  margin: 0px;
-  width: 100vw;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.search-home {
+  width: 60%;
+  margin-right: 20px;
 }

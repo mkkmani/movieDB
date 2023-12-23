@@ -12,7 +12,6 @@ const SearchCard = props => {
     voteAverage,
     overview,
   } = details
-  console.log('detailscard', details)
   const imagePath = 'https://image.tmdb.org/t/p/original'
   const bgImage = `${imagePath}${backDropPath}`
   const image = `${imagePath}${posterPath}`

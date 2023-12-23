@@ -8,12 +8,12 @@ const SearchCard = () => {
   )
 
   return (
-    <div className="search-card-container">
+    <div className="search-container-card">
       <input
         type="search"
-        value={userInput}
         onChange={e => onChangeInput(e.targe.value)}
         onKeyDown={e => onEnter(e.key)}
+        className="search-home"
       />
       <button type="button" onClick={onClickSearch} className="search-card-btn">
         Search

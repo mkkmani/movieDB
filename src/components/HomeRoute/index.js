@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-// import SearchCard from '../SearchContainer'
+import SearchCard from '../SearchContainer'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
@@ -93,7 +93,7 @@ const HomeRoute = () => {
   const SuccessPage = () =>
     data ? (
       <div>
-        {/* <SearchCard /> */}
+        <SearchCard />
         <ul className="home-ul">
           {data.map(each => (
             <li key={each.id}>

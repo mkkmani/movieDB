@@ -58,7 +58,7 @@ const SearchRoute = () => {
 
   const changePage = value => {
     const updatedPage = page + value
-    if (page <= 1) {
+    if (page < 1) {
       updatePage(1)
     }
     updatePage(updatedPage)
