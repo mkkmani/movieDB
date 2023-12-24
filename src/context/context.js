@@ -7,6 +7,7 @@ const InputContext = React.createContext({
   onEnter: () => {},
   onClickSearch: () => {},
   onClickTitle: () => {},
+  onClickSearchHome: () => {},
 })
 
 export default InputContext

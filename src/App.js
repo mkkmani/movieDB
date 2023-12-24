@@ -43,6 +43,11 @@ class App extends Component {
     }
   }
 
+  onClickSearchHome = input => {
+    this.setState({userInput: input})
+    this.onClickSearch()
+  }
+
   render() {
     const {userInput, redirectToSearch} = this.state
     const contextValue = {
@@ -51,6 +56,7 @@ class App extends Component {
       onEnter: this.onClickEnter,
       onClickSearch: this.onClickSearch,
       onClickTitle: this.onClickTitle,
+      onClickSearchHome: this.onClickSearchHome,
     }
 
     return (

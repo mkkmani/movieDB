@@ -1,21 +1,25 @@
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import InputContext from '../../context/context'
 import './index.css'
 
 const SearchCard = () => {
-  const {userInput, onChangeInput, onEnter, onClickSearch} = useContext(
-    InputContext,
-  )
+  const [userInput, setInput] = useState('')
+  const {onEnter, onClickSearchHome} = useContext(InputContext)
 
   return (
     <div className="search-container-card">
       <input
         type="search"
-        onChange={e => onChangeInput(e.targe.value)}
+        onChange={e => setInput(e.target.value)}
         onKeyDown={e => onEnter(e.key)}
         className="search-home"
+        value={userInput}
       />
-      <button type="button" onClick={onClickSearch} className="search-card-btn">
+      <button
+        type="button"
+        onClick={() => onClickSearchHome(userInput)}
+        className="search-card-btn"
+      >
         Search
       </button>
     </div>
