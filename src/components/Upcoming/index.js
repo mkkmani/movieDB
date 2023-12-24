@@ -55,11 +55,14 @@ const Upcoming = () => {
   }, [currentPage])
 
   const onChangePage = value => {
-    const updatedPage = currentPage + value
+    let updatedPage = currentPage + value
 
-    if (updatedPage < 0) {
-      changePage(1)
+    if (updatedPage < 1) {
+      updatedPage = 1
+    } else {
+      updatedPage = currentPage + value
     }
+
     changePage(updatedPage)
   }
 
@@ -69,9 +72,7 @@ const Upcoming = () => {
         type="button"
         className="page-btn"
         disabled={currentPage === 1}
-        onClick={() => {
-          onChangePage(-1)
-        }}
+        onClick={() => onChangePage(-1)}
       >
         Prev
       </button>
@@ -79,10 +80,7 @@ const Upcoming = () => {
       <button
         type="button"
         className="page-btn"
-        disabled={data.length < 20}
-        onClick={() => {
-          onChangePage(1)
-        }}
+        onClick={() => onChangePage(1)}
       >
         Next
       </button>
