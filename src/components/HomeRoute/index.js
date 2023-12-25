@@ -68,45 +68,18 @@ class HomeRoute extends Component {
 
   onChangePage = value => {
     const {currentPage} = this.state
-    const updatedPage = currentPage + value
+    let updatedPage = currentPage + value
 
     if (updatedPage < 1) {
-      this.setState({currentPage: 1}, this.fetchData)
+      updatedPage = 1
+      this.setState({currentPage: updatedPage})
     } else {
-      this.setState({currentPage: updatedPage}, this.fetchData)
+      this.setState({currentPage: updatedPage})
+      this.fetchData(updatedPage)
     }
   }
 
-  //   Pagination = () => {
-  //     const {currentPage} = this.state
-
-  //     return (
-  //       <div className="pagination-container">
-  //         <button
-  //           type="button"
-  //           className="page-btn"
-  //           disabled={currentPage === 1}
-  //           onClick={() => {
-  //             this.onChangePage(-1)
-  //           }}
-  //         >
-  //           Prev
-  //         </button>
-  //         <span className="page-number">{currentPage}</span>
-  //         <button
-  //           type="button"
-  //           className="page-btn"
-  //           onClick={() => {
-  //             this.onChangePage(1)
-  //           }}
-  //         >
-  //           Next
-  //         </button>
-  //       </div>
-  //     )
-  //   }
-
-  SuccessPage = () => {
+  successPage = () => {
     const {data, currentPage} = this.state
     return (
       <div>
@@ -126,13 +99,13 @@ class HomeRoute extends Component {
     )
   }
 
-  ReturnPage = () => {
+  returnPage = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusList.loading:
         return <Loading />
       case apiStatusList.success:
-        return this.SuccessPage()
+        return this.successPage()
       case apiStatusList.failure:
         return <Failure />
       default:
@@ -141,7 +114,7 @@ class HomeRoute extends Component {
   }
 
   render() {
-    return this.ReturnPage()
+    return this.returnPage()
   }
 }
 

@@ -14,6 +14,7 @@ const SearchCard = () => {
         onKeyDown={e => onEnter(e.key)}
         className="search-home"
         value={userInput}
+        placeholder="Search for your favorite movie"
       />
       <button
         type="button"
