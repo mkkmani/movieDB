@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {Component} from 'react'
 import SearchCard from '../SearchContainer'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
@@ -12,18 +12,26 @@ const apiStatusList = {
   failure: 'FAILURE',
 }
 
-const HomeRoute = () => {
-  const apiKey = 'e9ec2ea7225ad8a96148d8b293353054'
-  const [apiStatus, setApiStatus] = useState(apiStatusList.init)
-  const [data, setData] = useState()
-  const [currentPage, changePage] = useState(1)
-  useEffect(() => {
-    const fetchData = async () => {
-      setApiStatus(apiStatusList.loading)
-      const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`
+class HomeRoute extends Component {
+  state = {
+    apiStatus: apiStatusList.init,
+    data: [],
+    currentPage: 1,
+  }
 
-      const options = {method: 'GET'}
-      const response = await fetch(apiUrl, options)
+  componentDidMount() {
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    const {currentPage} = this.state
+    const apiKey = 'e9ec2ea7225ad8a96148d8b293353054'
+    const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`
+
+    this.setState({apiStatus: apiStatusList.loading})
+
+    try {
+      const response = await fetch(apiUrl)
       const fetchedData = await response.json()
 
       if (response.ok) {
@@ -44,54 +52,62 @@ const HomeRoute = () => {
           voteCount: each.vote_count,
         }))
 
-        setData(updatedData)
-        console.log('fetchedData', updatedData)
-        setApiStatus(apiStatusList.success)
+        this.setState({
+          data: updatedData,
+          apiStatus: apiStatusList.success,
+        })
       } else {
-        setApiStatus(apiStatusList.failure)
+        this.setState({apiStatus: apiStatusList.failure})
       }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+      this.setState({apiStatus: apiStatusList.failure})
     }
-
-    fetchData()
-  }, [currentPage])
-
-  const onChangePage = value => {
-    const updatedPage = currentPage + value
-
-    if (updatedPage < 0) {
-      changePage(1)
-    }
-    changePage(updatedPage)
   }
 
-  const Pagination = () => (
-    <div className="pagination-container">
-      <button
-        type="button"
-        className="page-btn"
-        disabled={currentPage === 1}
-        onClick={() => {
-          onChangePage(-1)
-        }}
-      >
-        Prev
-      </button>
-      <span className="page-number">{currentPage}</span>
-      <button
-        type="button"
-        className="page-btn"
-        disabled={data.length < 20}
-        onClick={() => {
-          onChangePage(1)
-        }}
-      >
-        Next
-      </button>
-    </div>
-  )
+  onChangePage = value => {
+    const {currentPage} = this.state
+    const updatedPage = currentPage + value
 
-  const SuccessPage = () =>
-    data ? (
+    if (updatedPage < 1) {
+      this.setState({currentPage: 1}, this.fetchData)
+    } else {
+      this.setState({currentPage: updatedPage}, this.fetchData)
+    }
+  }
+
+  Pagination = () => {
+    const {currentPage} = this.state
+
+    return (
+      <div className="pagination-container">
+        <button
+          type="button"
+          className="page-btn"
+          disabled={currentPage === 1}
+          onClick={() => {
+            this.onChangePage(-1)
+          }}
+        >
+          Prev
+        </button>
+        <span className="page-number">{currentPage}</span>
+        <button
+          type="button"
+          className="page-btn"
+          onClick={() => {
+            this.onChangePage(1)
+          }}
+        >
+          Next
+        </button>
+      </div>
+    )
+  }
+
+  SuccessPage = () => {
+    const {data} = this.state
+    return (
       <div>
         <SearchCard />
         <ul className="home-ul">
@@ -101,20 +117,18 @@ const HomeRoute = () => {
             </li>
           ))}
         </ul>
-        <Pagination />
-      </div>
-    ) : (
-      <div>
-        <Loading />
+        {this.Pagination()}
       </div>
     )
+  }
 
-  const ReturnPage = () => {
+  ReturnPage = () => {
+    const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusList.loading:
         return <Loading />
       case apiStatusList.success:
-        return <SuccessPage />
+        return this.SuccessPage()
       case apiStatusList.failure:
         return <Failure />
       default:
@@ -122,7 +136,9 @@ const HomeRoute = () => {
     }
   }
 
-  return <ReturnPage />
+  render() {
+    return this.ReturnPage()
+  }
 }
 
 export default HomeRoute

@@ -34,7 +34,7 @@ const Navbar = props => {
             </li>
             <li>
               <Link to="/top-rated" className="nav-link">
-                Top rated
+                Top Rated
               </Link>
             </li>
             <li>
