@@ -3,6 +3,7 @@ import SearchCard from '../SearchContainer'
 import MovieCard from '../MovieCard'
 import Loading from '../Loader'
 import Failure from '../Failure'
+import Pagination from '../Pagination'
 
 const apiStatusList = {
   init: 'INIT',
@@ -75,37 +76,8 @@ class Upcoming extends Component {
     }
   }
 
-  Pagination = () => {
-    const {currentPage} = this.state
-
-    return (
-      <div className="pagination-container">
-        <button
-          type="button"
-          className="page-btn"
-          disabled={currentPage === 1}
-          onClick={() => {
-            this.onChangePage(-1)
-          }}
-        >
-          Prev
-        </button>
-        <span className="page-number">{currentPage}</span>
-        <button
-          type="button"
-          className="page-btn"
-          onClick={() => {
-            this.onChangePage(1)
-          }}
-        >
-          Next
-        </button>
-      </div>
-    )
-  }
-
   SuccessPage = () => {
-    const {data} = this.state
+    const {data, currentPage} = this.state
     return (
       <div>
         <SearchCard />
@@ -116,7 +88,10 @@ class Upcoming extends Component {
             </li>
           ))}
         </ul>
-        {this.Pagination()}
+        <Pagination
+          currentPage={currentPage}
+          onChangePage={this.onChangePage}
+        />
       </div>
     )
   }
